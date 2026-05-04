@@ -217,96 +217,45 @@
     <div class="panel">
 
       <div class="panel-title">Papel</div>
-      <div class="field">
-        <label>Tamaño del papel</label>
-        <select id="paperSize">
-          <option value="216,279">Carta (21.6 × 27.9 cm)</option>
-          <option value="210,297" selected>A4 (21.0 × 29.7 cm)</option>
-          <option value="297,420">A3 (29.7 × 42.0 cm)</option>
-          <option value="432,279">Tabloide (43.2 × 27.9 cm)</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Orientación</label>
-        <select id="orientation">
-          <option value="portrait">Vertical (Portrait)</option>
-          <option value="landscape">Horizontal (Landscape)</option>
-        </select>
-      </div>
-
-      <span class="section-sep"></span>
-      <div class="panel-title">División de hojas</div>
-
-      <div class="mode-tabs">
-        <button class="mode-tab active" id="tabSize" onclick="setMode('size')">Por tamaño (cm)</button>
-        <button class="mode-tab" id="tabGrid" onclick="setMode('grid')">Por cuadrícula manual</button>
-      </div>
-
-      <div id="modeSize">
-        <div class="field-row">
-          <div class="field">
-            <label>Ancho final (cm)</label>
-            <input type="number" id="targetW" value="80" min="1" max="500">
-          </div>
-          <div class="field">
-            <label>Alto final (cm)</label>
-            <input type="number" id="targetH" value="60" min="1" max="500">
-          </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Tamaño del papel</label>
+          <select id="paperSize">
+            <option value="216,279" selected>Carta (21.6 × 27.9 cm)</option>
+            <option value="210,297">A4 (21.0 × 29.7 cm)</option>
+            <option value="297,420">A3 (29.7 × 42.0 cm)</option>
+            <option value="432,279">Tabloide (43.2 × 27.9 cm)</option>
+          </select>
         </div>
         <div class="field">
-          <label>Mantener proporción de la imagen</label>
-          <select id="keepRatio">
-            <option value="1">Sí — ajustar alto automáticamente</option>
-            <option value="0">No — usar exactamente el tamaño ingresado</option>
+          <label>Orientación</label>
+          <select id="orientation">
+            <option value="portrait">Vertical</option>
+            <option value="landscape">Horizontal</option>
           </select>
         </div>
       </div>
 
-      <div id="modeGrid" style="display:none;">
-        <div class="field-row">
-          <div class="field">
-            <label>Columnas (ancho)</label>
-            <input type="number" id="manualCols" value="3" min="1" max="20">
-          </div>
-          <div class="field">
-            <label>Filas (alto)</label>
-            <input type="number" id="manualRows" value="2" min="1" max="20">
-          </div>
-        </div>
-        <div class="info-box" style="margin-top:0;">
-          Divide en exactamente <strong id="gridTotal">6</strong> hojas. Útil cuando sabes cuántas hojas necesitas sin importar el cm.
-        </div>
-      </div>
-
       <span class="section-sep"></span>
-      <div class="panel-title">Sangría de ensamblaje</div>
+      <div class="panel-title">Cuántas hojas quieres</div>
 
-      <div class="field">
-        <label>Sangría por borde (mm)</label>
-        <input type="number" id="overlap" value="10" min="0" max="30" step="1">
+      <!-- Visual grid picker -->
+      <div style="margin-bottom:14px;">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:10px;">Toca la cuadrícula para elegir columnas × filas</div>
+        <div id="gridPicker" style="display:inline-grid;gap:4px;cursor:pointer;"></div>
+        <div style="margin-top:10px;font-size:12px;color:var(--muted);">
+          Seleccionado: <strong id="gridPickerLabel" style="color:var(--accent)">3 × 2 = 6 hojas</strong>
+        </div>
       </div>
 
-      <div class="overlap-visual">
-        <svg width="96" height="54" viewBox="0 0 96 54" flex-shrink="0">
-          <rect x="2" y="10" width="46" height="34" fill="#1c1c1c" stroke="#444" stroke-width="1" rx="2"/>
-          <rect x="2" y="10" width="46" height="34" fill="url(#g1)" rx="2" opacity="0.75"/>
-          <rect x="36" y="10" width="58" height="34" fill="#1c1c1c" stroke="#444" stroke-width="1" rx="2"/>
-          <rect x="36" y="10" width="58" height="34" fill="url(#g2)" rx="2" opacity="0.75"/>
-          <rect x="36" y="10" width="12" height="34" fill="rgba(232,255,71,0.18)"/>
-          <line x1="36" y1="7" x2="36" y2="46" stroke="#e8ff47" stroke-width="1" stroke-dasharray="3,2"/>
-          <line x1="48" y1="7" x2="48" y2="46" stroke="#e8ff47" stroke-width="1" stroke-dasharray="3,2"/>
-          <text x="42" y="6" font-size="5.5" fill="#e8ff47" text-anchor="middle" font-family="monospace">sangría</text>
-          <defs>
-            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#3a6186"/><stop offset="100%" stop-color="#89253e"/>
-            </linearGradient>
-            <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#89253e"/><stop offset="100%" stop-color="#f7971e"/>
-            </linearGradient>
-          </defs>
-        </svg>
-        <div class="overlap-desc">
-          Cada hoja incluye <strong>Xmm extra</strong> de imagen en sus bordes. Al pegar, deslizas hasta que la imagen coincida y cortas el sobrante con un cutter.
+      <div class="field-row">
+        <div class="field">
+          <label>Columnas</label>
+          <input type="number" id="manualCols" value="3" min="1" max="20">
+        </div>
+        <div class="field">
+          <label>Filas</label>
+          <input type="number" id="manualRows" value="2" min="1" max="20">
         </div>
       </div>
 
@@ -316,13 +265,13 @@
       <label class="checkbox-field">
         <input type="checkbox" id="chkCutMarks" checked>
         <span class="check-box"></span>
-        <span class="check-label">Mostrar marcas de corte en cada hoja</span>
+        <span class="check-label">Marcas de corte en cada hoja</span>
       </label>
 
       <label class="checkbox-field">
         <input type="checkbox" id="chkPrintNum" checked>
         <span class="check-box"></span>
-        <span class="check-label">Imprimir número de hoja al imprimir</span>
+        <span class="check-label">Imprimir número de hoja</span>
       </label>
 
       <label class="checkbox-field">
@@ -330,6 +279,12 @@
         <span class="check-box"></span>
         <span class="check-label">Mostrar cuadrícula en vista previa</span>
       </label>
+
+      <!-- hidden fields kept for compatibility -->
+      <input type="hidden" id="overlap" value="0">
+      <input type="hidden" id="targetW" value="80">
+      <input type="hidden" id="targetH" value="60">
+      <input type="hidden" id="keepRatio" value="1">
 
     </div>
   </div>
@@ -373,17 +328,74 @@
 <script>
   let loadedImage = null;
   let tiles = [];
-  let currentMode = 'size';
+  let pickerCols = 3;
+  let pickerRows = 2;
+  const PICKER_MAX = 8;
 
-  function setMode(mode) {
-    currentMode = mode;
-    document.getElementById('tabSize').classList.toggle('active', mode === 'size');
-    document.getElementById('tabGrid').classList.toggle('active', mode === 'grid');
-    document.getElementById('modeSize').style.display = mode === 'size' ? 'block' : 'none';
-    document.getElementById('modeGrid').style.display = mode === 'grid' ? 'block' : 'none';
+  // ── Grid Picker ──────────────────────────────────────────────
+  function buildGridPicker() {
+    const picker = document.getElementById('gridPicker');
+    picker.style.gridTemplateColumns = `repeat(${PICKER_MAX}, 28px)`;
+    picker.innerHTML = '';
+    for (let r = 1; r <= PICKER_MAX; r++) {
+      for (let c = 1; c <= PICKER_MAX; c++) {
+        const cell = document.createElement('div');
+        cell.dataset.c = c; cell.dataset.r = r;
+        cell.style.cssText = `width:28px;height:20px;border-radius:3px;border:1px solid #2a2a2a;background:#1c1c1c;transition:all 0.1s;`;
+        cell.addEventListener('mouseenter', () => hoverPicker(c, r));
+        cell.addEventListener('click', () => selectPicker(c, r));
+        picker.appendChild(cell);
+      }
+    }
+    hoverPicker(pickerCols, pickerRows);
+    selectPicker(pickerCols, pickerRows);
+  }
+
+  function hoverPicker(hc, hr) {
+    document.querySelectorAll('#gridPicker div').forEach(el => {
+      const c = +el.dataset.c, r = +el.dataset.r;
+      const inSel = c <= pickerCols && r <= pickerRows;
+      const inHov = c <= hc && r <= hr;
+      if (inHov) {
+        el.style.background = inSel ? '#e8ff47' : 'rgba(232,255,71,0.35)';
+        el.style.borderColor = '#e8ff47';
+      } else if (inSel) {
+        el.style.background = '#e8ff47';
+        el.style.borderColor = '#e8ff47';
+      } else {
+        el.style.background = '#1c1c1c';
+        el.style.borderColor = '#2a2a2a';
+      }
+    });
+  }
+
+  function selectPicker(c, r) {
+    pickerCols = c; pickerRows = r;
+    document.getElementById('manualCols').value = c;
+    document.getElementById('manualRows').value = r;
+    document.getElementById('gridPickerLabel').textContent = `${c} × ${r} = ${c*r} hojas`;
+    hoverPicker(c, r);
     if (loadedImage) updatePreviewGrid();
   }
 
+  // re-sync picker when numbers typed manually
+  document.getElementById('manualCols').addEventListener('input', () => {
+    const c = Math.min(PICKER_MAX, parseInt(document.getElementById('manualCols').value)||1);
+    const r = Math.min(PICKER_MAX, pickerRows);
+    selectPicker(c, r);
+  });
+  document.getElementById('manualRows').addEventListener('input', () => {
+    const c = Math.min(PICKER_MAX, pickerCols);
+    const r = Math.min(PICKER_MAX, parseInt(document.getElementById('manualRows').value)||1);
+    selectPicker(c, r);
+  });
+
+  // reset hover when mouse leaves picker
+  document.getElementById('gridPicker').addEventListener('mouseleave', () => hoverPicker(pickerCols, pickerRows));
+
+  buildGridPicker();
+
+  // ── File drop ────────────────────────────────────────────────
   const dropZone = document.getElementById('dropZone');
   dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
   dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
@@ -394,27 +406,9 @@
   });
   document.getElementById('fileInput').addEventListener('change', e => { if (e.target.files[0]) loadFile(e.target.files[0]); });
 
-  ['paperSize','orientation','overlap','targetW','targetH','keepRatio','manualCols','manualRows','chkShowGrid'].forEach(id => {
+  ['paperSize','orientation','chkShowGrid'].forEach(id => {
     const el = document.getElementById(id);
-    if (el) { el.addEventListener('input', () => { if (loadedImage) updatePreviewGrid(); }); el.addEventListener('change', () => { if (loadedImage) updatePreviewGrid(); }); }
-  });
-
-  document.getElementById('manualCols').addEventListener('input', updateGridTotal);
-  document.getElementById('manualRows').addEventListener('input', updateGridTotal);
-  function updateGridTotal() {
-    const c = parseInt(document.getElementById('manualCols').value)||1;
-    const r = parseInt(document.getElementById('manualRows').value)||1;
-    document.getElementById('gridTotal').textContent = c*r;
-    if (loadedImage) updatePreviewGrid();
-  }
-
-  document.getElementById('targetW').addEventListener('input', () => {
-    if (!loadedImage) return;
-    if (document.getElementById('keepRatio').value === '1') {
-      const ratio = loadedImage.naturalHeight / loadedImage.naturalWidth;
-      document.getElementById('targetH').value = Math.round(parseFloat(document.getElementById('targetW').value) * ratio);
-    }
-    updatePreviewGrid();
+    if (el) el.addEventListener('change', () => { if (loadedImage) updatePreviewGrid(); });
   });
 
   function loadFile(file) {
@@ -426,8 +420,6 @@
         document.getElementById('previewImg').src = e.target.result;
         document.getElementById('controls').classList.add('visible');
         document.getElementById('btnRow').style.display = 'flex';
-        const ratio = img.naturalHeight / img.naturalWidth;
-        document.getElementById('targetH').value = Math.round(parseFloat(document.getElementById('targetW').value) * ratio);
         updatePreviewGrid();
         tiles = [];
         document.getElementById('btnZip').disabled = true;
@@ -439,6 +431,7 @@
     reader.readAsDataURL(file);
   }
 
+  // ── Dimensions ───────────────────────────────────────────────
   function getPaperDimsMm() {
     const [w, h] = document.getElementById('paperSize').value.split(',').map(Number);
     return document.getElementById('orientation').value === 'portrait' ? [w, h] : [h, w];
@@ -446,32 +439,22 @@
 
   function getGridDims() {
     const [paperW, paperH] = getPaperDimsMm();
-    const overlap = parseFloat(document.getElementById('overlap').value) || 0;
-    const printW = paperW - overlap * 2;
-    const printH = paperH - overlap * 2;
-    let cols, rows, targetW, targetH;
-    if (currentMode === 'size') {
-      targetW = parseFloat(document.getElementById('targetW').value) || 80;
-      targetH = parseFloat(document.getElementById('targetH').value) || 60;
-      cols = Math.max(1, Math.ceil(targetW * 10 / printW));
-      rows = Math.max(1, Math.ceil(targetH * 10 / printH));
-    } else {
-      cols = parseInt(document.getElementById('manualCols').value) || 3;
-      rows = parseInt(document.getElementById('manualRows').value) || 2;
-      targetW = cols * printW / 10;
-      targetH = rows * printH / 10;
-    }
-    return { cols, rows, printW, printH, paperW, paperH, overlap, targetW, targetH };
+    const cols = pickerCols;
+    const rows = pickerRows;
+    const targetW = cols * paperW / 10;  // cm
+    const targetH = rows * paperH / 10;
+    return { cols, rows, paperW, paperH, targetW, targetH };
   }
 
+  // ── Preview overlay ──────────────────────────────────────────
   function updatePreviewGrid() {
     if (!loadedImage) return;
     const { cols, rows, targetW, targetH, paperW, paperH } = getGridDims();
     const showGrid = document.getElementById('chkShowGrid').checked;
 
     document.getElementById('infoBox').innerHTML =
-      `Póster: <strong>${Math.round(targetW)} × ${Math.round(targetH)} cm</strong> &nbsp;·&nbsp; Papel: <strong>${paperW}×${paperH} mm</strong><br>` +
-      `Cuadrícula: <strong>${cols} col × ${rows} filas</strong> = <strong>${cols * rows} hojas</strong>`;
+      `Póster aprox: <strong>${Math.round(targetW)} × ${Math.round(targetH)} cm</strong> &nbsp;·&nbsp; Papel: <strong>${paperW}×${paperH} mm</strong><br>` +
+      `<strong>${cols} columnas × ${rows} filas</strong> = <strong>${cols * rows} hojas</strong> — imagen ocupa toda la hoja`;
 
     const preview = document.getElementById('previewImg');
     const overlay = document.getElementById('gridOverlay');
@@ -504,8 +487,8 @@
         for (let c = 0; c < cols; c++) {
           const cx = offX + c*cw + cw/2;
           const cy = offY + r*ch + ch/2;
-          ctx.fillStyle = 'rgba(0,0,0,0.5)';
-          ctx.fillRect(cx-13, cy-10, 26, 20);
+          ctx.fillStyle = 'rgba(0,0,0,0.55)';
+          ctx.fillRect(cx-14, cy-10, 28, 20);
           ctx.fillStyle = 'rgba(232,255,71,0.95)';
           ctx.font = 'bold 11px monospace';
           ctx.fillText(n++, cx, cy);
@@ -514,10 +497,11 @@
     });
   }
 
+  // ── Generate tiles ───────────────────────────────────────────
   async function generateTiles() {
     if (!loadedImage) return;
     tiles = [];
-    const { cols, rows, targetW, targetH, overlap, paperW, paperH } = getGridDims();
+    const { cols, rows, paperW, paperH } = getGridDims();
     const total = cols * rows;
 
     document.getElementById('progressWrap').classList.add('visible');
@@ -527,17 +511,16 @@
     document.getElementById('btnZip').disabled = true;
     document.getElementById('btnPrint').disabled = true;
 
-    const DPI = 150;
-    const CM_PER_INCH = 2.54;
+    const DPI = 300;
     const MM_PER_INCH = 25.4;
 
-    const totalPxW = Math.round(targetW / CM_PER_INCH * DPI);
-    const totalPxH = Math.round(targetH / CM_PER_INCH * DPI);
-    const overlapPx = Math.round(overlap / MM_PER_INCH * DPI);
-    const tileW = Math.ceil(totalPxW / cols);
-    const tileH = Math.ceil(totalPxH / rows);
+    // Each tile = exactly one sheet at 300 DPI
     const paperPxW = Math.round(paperW / MM_PER_INCH * DPI);
     const paperPxH = Math.round(paperH / MM_PER_INCH * DPI);
+
+    // Full poster canvas = cols×rows sheets
+    const totalPxW = paperPxW * cols;
+    const totalPxH = paperPxH * rows;
 
     const fullCanvas = document.createElement('canvas');
     fullCanvas.width = totalPxW; fullCanvas.height = totalPxH;
@@ -550,73 +533,41 @@
     let done = 0;
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        // Source region with overlap
-        const sx = Math.max(0, c * tileW - overlapPx);
-        const sy = Math.max(0, r * tileH - overlapPx);
-        const ex = Math.min(totalPxW, (c+1) * tileW + overlapPx);
-        const ey = Math.min(totalPxH, (r+1) * tileH + overlapPx);
-        const sw = ex - sx;
-        const sh = ey - sy;
-
-        // Offset inside paper (center the tile content)
-        const leftBleed  = c === 0 ? 0 : overlapPx;
-        const topBleed   = r === 0 ? 0 : overlapPx;
-        const imgX = leftBleed;
-        const imgY = topBleed;
+        const sx = c * paperPxW;
+        const sy = r * paperPxH;
 
         const tc = document.createElement('canvas');
         tc.width = paperPxW; tc.height = paperPxH;
         const tctx = tc.getContext('2d');
 
-        // White background
         tctx.fillStyle = '#ffffff';
         tctx.fillRect(0, 0, paperPxW, paperPxH);
 
-        // Draw image tile
         tctx.imageSmoothingEnabled = true;
         tctx.imageSmoothingQuality = 'high';
-        tctx.drawImage(fullCanvas, sx, sy, sw, sh, imgX, imgY, sw, sh);
+        // Draw exactly one tile's worth — fills the full page
+        tctx.drawImage(fullCanvas, sx, sy, paperPxW, paperPxH, 0, 0, paperPxW, paperPxH);
 
         // Cut marks
         if (showCuts) {
-          const markLen = 22;
-          const markGap = 6;
-          tctx.strokeStyle = '#888888';
-          tctx.lineWidth = 1;
-          tctx.setLineDash([5, 4]);
-
-          // Left edge cut line (not on first column)
-          if (c > 0) {
-            tctx.beginPath(); tctx.moveTo(imgX - markGap, 0); tctx.lineTo(imgX - markGap, paperPxH); tctx.stroke();
-          }
-          // Right edge cut line (not on last column)
-          if (c < cols - 1) {
-            tctx.beginPath(); tctx.moveTo(imgX + sw + markGap, 0); tctx.lineTo(imgX + sw + markGap, paperPxH); tctx.stroke();
-          }
-          // Top edge cut line
-          if (r > 0) {
-            tctx.beginPath(); tctx.moveTo(0, imgY - markGap); tctx.lineTo(paperPxW, imgY - markGap); tctx.stroke();
-          }
-          // Bottom edge cut line
-          if (r < rows - 1) {
-            tctx.beginPath(); tctx.moveTo(0, imgY + sh + markGap); tctx.lineTo(paperPxW, imgY + sh + markGap); tctx.stroke();
-          }
-
-          // Corner L-marks
-          tctx.setLineDash([]);
-          tctx.strokeStyle = '#555';
+          const markLen = 30;
+          tctx.strokeStyle = 'rgba(0,0,0,0.4)';
           tctx.lineWidth = 1.5;
-          const corners = [
-            { x: imgX - markGap, y: imgY - markGap, dx: -markLen, dy: -markLen },
-            { x: imgX + sw + markGap, y: imgY - markGap, dx: markLen, dy: -markLen },
-            { x: imgX - markGap, y: imgY + sh + markGap, dx: -markLen, dy: markLen },
-            { x: imgX + sw + markGap, y: imgY + sh + markGap, dx: markLen, dy: markLen },
-          ];
-          corners.forEach(({x, y, dx, dy}) => {
+          tctx.setLineDash([]);
+
+          const drawMark = (x, y, dx, dy) => {
             tctx.beginPath();
-            tctx.moveTo(x + dx, y); tctx.lineTo(x, y); tctx.lineTo(x, y + dy);
+            tctx.moveTo(x, y);
+            tctx.lineTo(x + dx * markLen, y);
+            tctx.moveTo(x, y);
+            tctx.lineTo(x, y + dy * markLen);
             tctx.stroke();
-          });
+          };
+
+          if (c > 0 || r > 0) drawMark(0, 0, 1, 1);
+          if (c < cols-1 || r > 0) drawMark(paperPxW, 0, -1, 1);
+          if (c > 0 || r < rows-1) drawMark(0, paperPxH, 1, -1);
+          if (c < cols-1 || r < rows-1) drawMark(paperPxW, paperPxH, -1, -1);
         }
 
         const num = r * cols + c + 1;
@@ -658,7 +609,7 @@
 
     document.getElementById('progressWrap').classList.remove('visible');
     document.getElementById('resultMeta').textContent =
-      `${tiles[0].cols} col × ${tiles[0].rows} filas · ${tiles.length} hojas · ${Math.round(targetW)}×${Math.round(targetH)} cm · 150 DPI`;
+      `${tiles[0].cols} col × ${tiles[0].rows} filas · ${tiles.length} hojas · 300 DPI · imagen llena cada hoja`;
     document.getElementById('resultSection').classList.add('visible');
     document.getElementById('btnZip').disabled = false;
     document.getElementById('btnPrint').disabled = false;
@@ -705,5 +656,6 @@
     window.print();
   }
 </script>
+
 </body>
 </html>
