@@ -526,7 +526,23 @@
     fullCanvas.width = totalPxW; fullCanvas.height = totalPxH;
     const fctx = fullCanvas.getContext('2d');
     fctx.imageSmoothingEnabled = true; fctx.imageSmoothingQuality = 'high';
-    fctx.drawImage(loadedImage, 0, 0, totalPxW, totalPxH);
+    // Draw image scaled to COVER the full poster (no white borders, crop if needed)
+    // Use the image's natural ratio to fill totalPxW x totalPxH without distortion
+    const imgRatio = loadedImage.naturalWidth / loadedImage.naturalHeight;
+    const posterRatio = totalPxW / totalPxH;
+    let drawW, drawH, drawX, drawY;
+    if (imgRatio > posterRatio) {
+      // Image is wider — fit height, crop sides
+      drawH = totalPxH;
+      drawW = drawH * imgRatio;
+    } else {
+      // Image is taller — fit width, crop top/bottom
+      drawW = totalPxW;
+      drawH = drawW / imgRatio;
+    }
+    drawX = (totalPxW - drawW) / 2;
+    drawY = (totalPxH - drawH) / 2;
+    fctx.drawImage(loadedImage, drawX, drawY, drawW, drawH);
 
     const showCuts = document.getElementById('chkCutMarks').checked;
 
